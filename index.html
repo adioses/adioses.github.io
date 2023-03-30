@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Proyecto SAT GIS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+
+    <meta http-equiv="cache-control" content="no-cache" />
+
+    <!--
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="Plugins/Leaflet.fullscreen/Control.FullScreen.css">
+    <link rel="stylesheet" href="Plugins/Sidebar/leaflet-sidebar.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+
+  <div id="sidebar" class="leaflet-sidebar collapsed">
+    <!-- Nav tabs -->
+    <div class="leaflet-sidebar-tabs">
+      <ul role="tablist">
+        <li><a href="#home" role="tab"><i class="fa fa-layer-group"></i></a></li>
+        <li><a href="#sigrid" role="tab"><i class="fa fa-map"></i></a></li>
+        <li><a href="#simu" role="tab"><i class="fa fa-house-flood-water"></i></a></li>
+        <li><a href="#lims" role="tab"><i class="fa fa-globe"></i></a></li>
+        
+      </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="leaflet-sidebar-content">
+      <!--------------------------------------------------------------------------------------------------------------------------->
+      <!--Tab Principal -->
+      <div class="leaflet-sidebar-pane" id="home">
+        <h1 class="leaflet-sidebar-header">
+          Información Contratista
+          <span class="leaflet-sidebar-close"> <i class="fa fa-caret-right"></i></span>
+        </h1>
+        <span id="layercontrol"></span>
+        <div class="layers" id="ARCC">
+          <div class="visor-group-headers ">
+            <strong> Instrumental </strong>
+            <!------------------------------------------------------------------------------------------------------->
+            <!-- Controladore C02 pts-->
+            <div class="C02-pts layers">
+              <div class="box act-layers head-bk-L">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="C02" onclick="activate_pts('C02')" >
+                </div>
+              </div>
+              
+              <div class="box C02-head head-bk-R"> 
+                  Componente 02
+              </div>
+
+              <div class="box act-layers">
+                <div class="form-check check">
+                  <input class="form-check-input" type="checkbox" id="T02"  onclick="activate_Telemetria('C02')">
+                  <label class="form-check-label" > Telemetria </label>
+                </div>
+              </div>
+              
+              <div class="box">
+              </div>
+              
+              <div class="box">
+                <select class="form-select form-select-sm bg-secondary" disabled>
+                  <option value="R00">R00</option>
+                  <option value="R03">R03</option>
+                  <option selected value="R08">R08</option>
+                </select>
+              </div>
+              
+              <div class="box">
+                <samp>
+                  <button type="button" class="btn btn-info btn-sm add_legend">
+                    <i class="fas fa-list-ul"></i>
+                    </button>
+                </samp>
+              </div>
+            </div>
+            <!------------------------------------------------------------------------------------------------------->
+            <!-- Controladore C03 pts-->
+            <div class="C03-pts layers">
+              <div class="box act-layers head-bk-L">
+                  <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id = "C03" onclick="activate_pts('C03')" >
+                  </div>
+              </div>
+              
+              <div class="box C02-head layers head-bk-R"> 
+                  Componente 03
+              </div>
+              <div class="box act-layers tel-pts label-pts-opt">
+                  <div class="form-check check">
+                      <input class="form-check-input" type="checkbox" id="T03"  onclick="activate_Telemetria('C03')">
+                      
+                      <label class="form-check-label" > Telemetria </label>
+                  </div>
+              </div>
+      
+              <div class="box">
+                  <div class="form-check check label-pts-opt">
+                      <input class="form-check-input" type="checkbox" id="C03_c"  onclick="add_cobertura('C03')">
+                      <label class="form-check-label" > Cobertura </label>
+                  </div>
+                  
+              </div>
+              <div class="box">
+                  <samp>
+                      <button type="button" class="btn btn-info btn-sm add_sir">
+                      <i class="fas fa-list-ul"></i>
+                      </button>
+                  </samp>
+              </div>
+            </div>
+           <!------------------------------------------------------------------------------------------------------->
+           <!-- Controladore Radares -->
+            <div class="C02-pts layers">
+              <div class="box act-layers head-bk-L">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="RAD" onclick="activate_pts('RAD')" >
+                </div>
+              </div>
+              
+              <div class="box C02-head head-bk-R"> 
+                  Radares - Componente 02
+              </div>
+
+              <div class="box act-layers">
+                <div class="form-check check">
+                  <input class="form-check-input" type="checkbox" id="RAD_c"  onclick="add_cobertura('RAD')">
+                  <label class="form-check-label" > Cobertura </label>
+                </div>
+              </div>
+              
+              <div class="box">
+              </div>
+              
+              <div class="box">
+              </div>
+              
+              <div class="box">
+                <samp>
+                  <button type="button" class="btn btn-info btn-sm add_radar">
+                    <i class="fas fa-list-ul"></i>
+                    </button>
+                </samp>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------------------------------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------------------------------------->
+          <div class="visor-group-headers ">
+            <strong> Proyectos </strong>
+          </div>
+          <!-- Controladore Limites -->
+          <div class="lims layers">
+            <div class="box act-layers head-bk-L">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="CUE" onclick="activate_cap('CUE')" >
+                </div>
+            </div>
+            
+            <div class="box C02-head layers head-bk-R"> 
+                Limites Cuencas
+            </div>
+    
+            <div class="act-layers tel-pts label-pts-opt">
+                <div class="form-check check">
+                    <input class="form-check-input" type="checkbox" id="CUE_s" onclick="activate_sub('CUE')" >
+                    <label class="form-check-label"> Subcuencas </label>
+                </div>
+            </div>
+    
+            <div class="lslide">
+                <input id ="CUE_o" type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" onchange="opacity_c('CUE')">
+            </div>
+          </div>
+
+          <div class="visor-group-headers ">
+            <strong> Información social </strong>
+          </div>
+
+          <div class="grid-layout">
+            <div class="caja head">
+                Área de Población Directamente Beneficiada
+            </div>
+            <div class="caja check">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="PDB" onclick="activate_cap('PDB')">
+                </div>
+            </div>
+            <div class="caja slide">
+                <input id="PDB_o" type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" onchange="opacity_cap('PDB')">
+            </div>
+          </div>
+
+          <div class="grid-layout">
+            <div class="caja head">
+                Área de Influencia Social Directa
+            </div>
+            <div class="caja check">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="ASD" onclick="activate_cap('ASD')">
+                </div>
+            </div>
+            <div class="caja slide">
+                <input id ="ASD_o" type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" onchange="opacity_cap('ASD')">
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <!--------------------------------------------------------------------------------------------------------------------------->
+      <!--Tab SIGRID -->
+      <div class="leaflet-sidebar-pane" id="sigrid">
+        <h1 class="leaflet-sidebar-header">
+          Adiccionar capas sigrid
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+        </h1>
+        <div class="visor-group-headers ">
+          <strong> Herramienta para añadir capas</strong>
+        </div>
+        <form>
+          <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" > Grupo: </span>
+              <input id="f_grupo" type="text" class="form-control" placeholder=" Ex: Informacion_CENEPRED" value= "">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" > ID: </span>
+              <input id="f_cod" type="text" class="form-control" placeholder=" Ex: 3020105" value= "">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" > Nombre: </span>
+              <input id="f_name" type="text" class="form-control" placeholder=" Ex: Sucep. Inundaciones 2023" value= "">
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm tst_nsigrid">Probar</button>
+          <button type="button" class="btn btn-success btn-sm add_nsigrid">Añadir</button>
+        </form>
+        <br>
+        <div class="layers" id="SigridLayers">
+          <!-- Aqui se agregarán las capas provenientes de SIGRID-->
+        </div>
+      </div>
+      <!--------------------------------------------------------------------------------------------------------------------------->
+      <!--Tab Simulaciones -->
+      <div class="leaflet-sidebar-pane" id="simu">
+        <h1 class="leaflet-sidebar-header">
+          Manchas de Inundación
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+        </h1>
+
+        <div class="visor-group-headers ">
+          <strong> Aqui se pondrán las manchas </strong>
+        </div>
+
+
+
+      </div>
+
+
+      <!--------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------------------------------------------------------------------------------->
+      <!--Tab Limites -->
+      <div class="leaflet-sidebar-pane" id="lims">
+        <h1 class="leaflet-sidebar-header">
+          Limites Administrativos
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+        </h1>
+        <br>
+        <div class="visor-group-headers ">
+          <strong> Limites Politicos</strong>
+        </div>
+        
+        <!------------------------------------------------------------------------------------------------>
+        <!-- Limites Departamentales-->  
+        <div class="lims layers">
+          <div class="box act-layers head-bk-L">
+              <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="DEP" onclick="activate_lims('DEP')" >
+              </div>
+          </div>
+          
+          <div class="box C02-head layers head-bk-R"> 
+              Limites Departamentales
+          </div>
+  
+          <div class="act-layers tel-pts label-pts-opt">
+              <div class="form-check check">
+                  <input class="form-check-input" type="checkbox" id="DEP_l"  checked onclick="activate_label('DEP')" >
+                  <label class="form-check-label"> Activar Etiquetas </label>
+              </div>
+          </div>
+  
+          <div class="labels clabel"> 
+              Color de Linea:
+          </div>
+  
+          <div class="cbox">
+              <input id="DEP_cc" type="color" class="form-control form-control-color" value="#FFFFFF" onchange="change_color('DEP')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Ancho de Linea:
+          </div>
+  
+          <div class="lslide">
+              <input id ="DEP_wd" type="range" class="form-range" min="1" max="7" step="1" value="3" onchange="change_width('DEP')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Tamaño de letra:
+          </div>
+  
+          <div class="lslide">
+              <input id="DEP_fs" type="range" class="form-range" min="10" max="30" step="1" value="20" onchange="change_fsize('DEP')">
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------>
+        <!-- Limites Provinciales-->  
+        <div class="lims layers">
+          <div class="box act-layers head-bk-L">
+              <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="PRO" onclick="activate_lims('PRO')" >
+              </div>
+          </div>
+          
+          <div class="box C02-head layers head-bk-R"> 
+              Limites Provinciales
+          </div>
+  
+          <div class="act-layers tel-pts label-pts-opt">
+              <div class="form-check check">
+                  <input class="form-check-input" type="checkbox" id="PRO_l" onclick="activate_label('PRO')" >
+                  <label class="form-check-label"> Activar Etiquetas </label>
+              </div>
+          </div>
+  
+          <div class="labels clabel"> 
+              Color de Linea:
+          </div>
+  
+          <div class="cbox">
+              <input id="PRO_cc" type="color" class="form-control form-control-color" value="#FCE94F" onchange="change_color('PRO')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Ancho de Linea:
+          </div>
+  
+          <div class="lslide">
+              <input id ="PRO_wd" type="range" class="form-range" min="1" max="7" step="1" value="2" onchange="change_width('PRO')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Tamaño de letra:
+          </div>
+  
+          <div class="lslide">
+              <input id="PRO_fs" type="range" class="form-range" min="10" max="30" step="1" value="15" onchange="change_fsize('PRO')">
+          </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------> 
+        <!-- Limites Distritales--> 
+        <div class="lims layers">
+          <div class="box act-layers head-bk-L">
+              <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="DST" onclick="activate_lims('DST')" >
+              </div>
+          </div>
+          
+          <div class="box C02-head layers head-bk-R"> 
+              Limites Distritales
+          </div>
+  
+          <div class="act-layers tel-pts label-pts-opt">
+              <div class="form-check check">
+                  <input class="form-check-input" type="checkbox" id="DST_l" onclick="activate_label('DST')" >
+                  <label class="form-check-label"> Activar Etiquetas </label>
+              </div>
+          </div>
+  
+          <div class="labels clabel"> 
+              Color de Linea:
+          </div>
+  
+          <div class="cbox">
+              <input id="DST_cc" type="color" class="form-control form-control-color" value="#AD7FA8" onchange="change_color('DST')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Ancho de Linea:
+          </div>
+  
+          <div class="lslide">
+              <input id ="DST_wd" type="range" class="form-range" min="1" max="7" step="1" value="1" onchange="change_width('DST')">
+          </div>
+  
+          <div class="labels tel-pts"> 
+              Tamaño de letra:
+          </div>
+  
+          <div class="lslide">
+              <input id="DST_fs" type="range" class="form-range" min="10" max="30" step="1" value="10" onchange="change_fsize('DST')">
+          </div>
+        </div>        
+
+      </div>
+
+
+    </div>
+  </div>
+
+    <div id="map"></div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js'></script>
+    <script src='Plugins/Sidebar/leaflet-sidebar.js'></script>
+    <script src="Plugins/Leaflet.NonTiledLayer/NonTiledLayer.js"></script> 
+    <script src="Plugins/Leaflet.fullscreen/Control.FullScreen.js"></script> 
+    <!--
+    <script src="Plugins/Leaflet.fullscreen/Control.FullScreen.js"></script>
+    <script src="Plugins/Leaflet.ESRI/esri-leaflet-debug.js"></script> 
+    -->
+    <script src="https://unpkg.com/esri-leaflet@2.1.3/dist/esri-leaflet.js"
+    integrity="sha512-pijLQd2FbV/7+Jwa86Mk3ACxnasfIMzJRrIlVQsuPKPCfUBCDMDUoLiBQRg7dAQY6D1rkmCcR8286hVTn/wlIg=="
+    crossorigin=""></script>
+
+
+    <script src="js/main.js"></script>
+    <script src="js/layers_sigrid.js"></script>
+    <script src="js/limites.js"></script>
+    <script src="js/CAP.js"></script>
+    <!--
+    <script src="js/layers.js"></script>
+    -->
+    
+  </body>
+</html>
